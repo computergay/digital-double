@@ -243,6 +243,8 @@ async function consumeData(data) {
     save_box.classList.toggle('d-none');
     let alt_box = document.getElementById('alt-text-button');
     alt_box.classList.toggle('d-none');
+    let tweet_box = document.getElementById('tweet-button');
+    tweet_box.classList.toggle('d-none');
     setAltText(data);
 }
 
