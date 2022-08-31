@@ -13,16 +13,18 @@
 
 .source-code{
   font-family: "Source Code Pro", "sans-serif";
+  font-size: larger;
 }
 
 .success {
   border-color: #00ff41;
   color: #00ff41;
+  background-color: black;
 }
 
 .success:hover {
   background-color: #00ff41;
-  color: #292b2c;
+  color: black;
 }
 
 ::-webkit-input-placeholder {
@@ -30,17 +32,22 @@
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow:0 0 0 50px #292b2c inset; /* Change the color to your own background color */
+  -webkit-box-shadow:0 0 0 50px black inset; /* Change the color to your own background color */
   -webkit-text-fill-color: #00ff41;
 }
 
 input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 50px #292b2c inset;/*your box-shadow*/
+  -webkit-box-shadow: 0 0 0 50px black inset;/*your box-shadow*/
   -webkit-text-fill-color: #00ff41;
 } 
 
 .img-border {
   border-color: #00ff41;
   border-width: 2px;
-  border-style: solid;
+  border-style: ridge;
+  border-radius: 25px;
+}
+
+.cover-img { 
+  height: auto; 
 }
