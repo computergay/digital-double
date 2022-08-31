@@ -171,8 +171,8 @@ function main() {
     user_form.classList.add('d-none');
     error_box.classList.add('d-none');
     let loading_box = document.getElementById('loading');
-    loading_box.innerText = `Fetching tweets for @${username}...`;
-    loading_box.classList.toggle('d-none');
+    loading_box.innerText = `> Fetching tweets for @${username}...`;
+    loading_box.classList.remove('d-none');
     const response = fetch(API_ENDPOINT + username)
         .then(response => validateResponse(response.json()))
         .catch(err => handleError(err));
@@ -180,7 +180,7 @@ function main() {
 
 async function validateResponse(data) {
     let loading_box = document.getElementById('loading');
-    loading_box.classList.remove('d-none');
+    loading_box.classList.add('d-none');
     data = await data;
     if('error' in data)
     {
