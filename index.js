@@ -172,16 +172,15 @@ function main() {
     error_box.classList.add('d-none');
     let loading_box = document.getElementById('loading');
     loading_box.innerText = `> Fetching tweets for @${username}...`;
-    loading_box.classList.remove('d-none');
+    loading_box.classList.toggle('d-none');
     const response = fetch(API_ENDPOINT + username)
         .then(response => validateResponse(response.json()))
         .catch(err => handleError(err));
 }
 
 async function validateResponse(data) {
-    let loading_box = document.getElementById('loading');
-    loading_box.classList.add('d-none');
     data = await data;
+
     if('error' in data)
     {
         handleError(data);
@@ -193,8 +192,6 @@ async function validateResponse(data) {
 function handleError(err) {
     let error_box = document.getElementById('error');
     error_box.classList.remove('d-none');
-    let loading_box = document.getElementById('loading');
-    loading_box.classList.add('d-none');
     //expected error
     if('error' in err) {
     error_box.innerText = err['error'];
@@ -214,6 +211,8 @@ function altText() {
 
 async function consumeData(data) {
     await render(data);
+    let loading_box = document.getElementById('loading');
+    loading_box.classList.toggle('d-none');
     let save_box = document.getElementById('save');
     save_box.classList.toggle('d-none');
     let alt_box = document.getElementById('alt-text-button');
