@@ -1,3 +1,40 @@
 #responsive-canvas {
     width: 100%;
   }
+
+  body { padding-bottom: 70px; }
+
+  .border-green{
+  border-color: #00ff41;
+}
+.text-green{
+  color: #00ff41;
+}
+
+.source-code{
+  font-family: "Source Code Pro", "sans-serif";
+}
+
+.success {
+  border-color: #00ff41;
+  color: #00ff41;
+}
+
+.success:hover {
+  background-color: #00ff41;
+  color: #292b2c;
+}
+
+::-webkit-input-placeholder {
+  color:#008F11;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0 50px #292b2c inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: #00ff41;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px #292b2c inset;/*your box-shadow*/
+  -webkit-text-fill-color: #00ff41;
+} 

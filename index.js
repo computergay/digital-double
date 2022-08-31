@@ -27,26 +27,6 @@ let myFont2 = new FontFace(
     document.fonts.add(font)
 });
 var alt_text = "";
-/*
-window.onload = function() {
-    var canvas = document.getElementById('responsive-canvas');
-var heightRatio = 1;
-canvas.height = canvas.width * heightRatio;
-  }
-  let myFont = new FontFace(
-  "Pangolin",
-  "url(https://fonts.gstatic.com/s/pangolin/v6/cY9GfjGcW0FPpi-tWMfN79z4i6BH.woff2)"
-);
-
-myFont.load().then((font) => {
-  document.fonts.add(font);
-  console.log("Font loaded");
-  var ctx = image.getContext("2d");
-  ctx.fillStyle = "#292929";
-  ctx.font = "30px Pangolin";
-  ctx.fillText("A chicken", 400, 120);
-});
-  */
  $(function(){
 
     $('#username-form').submit(function () {
@@ -123,33 +103,21 @@ function drawTopBox(ctx, x, y, dict) {
 async function render(data) {
     var canvas = document.getElementById('responsive-canvas');
     
-	console.log(data)
+
     const user = data["user"];
     const results = data["results"];
 	const top_domains = results["top_domains"];
 	const friends = results["top_friends"];
-	console.log(top_domains);
 	const width = 1000;
 	const height = 1000;
-    canvas.width = width;
-    canvas.height = height;
+  canvas.width = width;
+  canvas.height = height;
 	const ctx = canvas.getContext("2d");
 
-
-	// fill the background
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0, 0, width, height);
 
 	const logo = await loadImage('logo.png')
-	/*
-    ctx.drawImage(
-		logo,
-		350,
-		20,
-		300,
-		75
-	);
-    */
 	loc_dicts = [{x:60, y:100},{x:620,y:100},{x:60, y:400},{x:620,y:400},{x:60, y:700},{x:620,y:700}]
 	for(let i = 0; i < top_domains.length; ++i)
 	{
@@ -166,16 +134,20 @@ async function render(data) {
 	{
 		drawAvatar(ctx, 450, USER_AVATAR_START + FRIEND_OFFSET + AVATAR_SPACING * i, 100, 100, 10, friend_images[i]);
 	}
-    /*
-	ctx.font = '100px ' + CONTENT_FONT;
-	for(let i = 0; i < friend_images.length; ++i) {
-		ctx.fillText((1 + i), 395, USER_AVATAR_START + FRIEND_OFFSET + 80 + i * AVATAR_SPACING);
-	}
-    */
 	ctx.font = "30px " + CONTENT_FONT
-	ctx.fillText("irlbook.com/digitaldouble", 620, 980);
-    //resizeTo(canvas,desired_width, desired_height);
+	ctx.fillText("digitaldouble.irlbook.com", 620, 980);
+  convertCanvasToImage();
 };
+
+function convertCanvasToImage() {
+  var canvas = document.getElementById('responsive-canvas'),
+  dataUrl = canvas.toDataURL(),
+  imageFoo = document.getElementById('result-image');
+  imageFoo.src = dataUrl;
+  imageFoo.classList.toggle('d-none');
+  imageFoo.classList.toggle('d-block');
+
+}
 
 function downloadImage() {
     var link = document.createElement('a');
@@ -193,22 +165,14 @@ function main() {
     if(username === "") return;
     username = username.replace("@", "");
     let error_box = document.getElementById('error');
-    if(validTwitterUser(username)) {
-        user_form.classList.add('d-none');
-        error_box.classList.add('d-none');
-        let loading_box = document.getElementById('loading');
-        loading_box.innerText = `One moment. Fetching tweets for @${username}.`;
-        loading_box.classList.toggle('d-none');
-        const response = fetch(API_ENDPOINT + username)
-            .then(response => validateResponse(response.json()))
-            .catch(err => console.error(err));
-    }
-    else {
-        error_box.innerText = username + " is not a valid Twitter username.";
-        if(error_box.classList.contains("d-none")) {
-        error_box.classList.remove('d-none');
-        }
-    }
+    user_form.classList.add('d-none');
+    error_box.classList.add('d-none');
+    let loading_box = document.getElementById('loading');
+    loading_box.innerText = `One moment.\n Fetching tweets for @${username}.`;
+    loading_box.classList.toggle('d-none');
+    const response = fetch(API_ENDPOINT + username)
+        .then(response => validateResponse(response.json()))
+        .catch(err => handleError(err));
 }
 
 async function validateResponse(data) {
@@ -217,7 +181,7 @@ async function validateResponse(data) {
     data = await data;
     if('error' in data)
     {
-        handleError(data['error']);
+        handleError(data);
         return;
     }
     consumeData(data);
@@ -225,8 +189,14 @@ async function validateResponse(data) {
 
 function handleError(err) {
     let error_box = document.getElementById('error');
-    error_box.classList.add('d-none');
-    error_box.value = err['error'];
+    error_box.classList.remove('d-none');
+    //expected error
+    if('error' in err) {
+    error_box.innerText = err['error'];
+    }
+    else {
+      error_box.innerHTML = "Something went wrong. Please DM <a href=\"twitter.com/computer_gay\">!computer_gay</a>."
+    }
 }
 function altText() {
   var copyIcon= document.getElementById("copy-span");
@@ -285,9 +255,10 @@ Friends
 ${Object.keys(data['results']['top_friends']).map(function (key) {
   return "@" + key
 }).join("\n")}`;
+imageFoo = document.getElementById('result-image');
+imageFoo.alt = alt_text;
+
 }
 
-function validTwitterUser(sn) {
-    return /^[a-zA-Z0-9_]{1,15}$/.test(sn);
-}
+
   
