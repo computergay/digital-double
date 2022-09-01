@@ -6,11 +6,11 @@ const TEXT_UP_OFFSET = 40;
 const AVATAR_SPACING = 130;
 const USER_AVATAR_START = 55;
 const FRIEND_OFFSET = 150;
-//const API_ENDPOINT = "https://digitaldouble-api.vercel.app/api/getData?username=";
-//const SPOT_ENDPOINT = "https://digitaldouble-api.vercel.app/api/checkSlots";
+const API_ENDPOINT = "https://digitaldouble-api.vercel.app/api/getData?username=";
+const SPOT_ENDPOINT = "https://digitaldouble-api.vercel.app/api/checkSlots";
 
-const API_ENDPOINT = "http://localhost:3001/api/getData?username=";
-const SPOT_ENDPOINT = "http://localhost:3001/api/checkSlots";
+//const API_ENDPOINT = "http://localhost:3001/api/getData?username=";
+//const SPOT_ENDPOINT = "http://localhost:3001/api/checkSlots";
 const TITLE_FONT = "PressStart";
 const CONTENT_FONT = "serif"
 const TEXT_WIDTH = 290;
