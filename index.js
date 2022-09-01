@@ -7,8 +7,10 @@ const AVATAR_SPACING = 130;
 const USER_AVATAR_START = 55;
 const FRIEND_OFFSET = 150;
 const API_ENDPOINT = "https://digitaldouble-api.vercel.app/api/getData?username=";
-//const API_ENDPOINT = "http://localhost:3001/api/getData?username=";
+const SPOT_ENDPOINT = "https://digitaldouble-api.vercel.app/api/checkSlots";
 
+//const API_ENDPOINT = "http://localhost:3001/api/getData?username=";
+//const SPOT_ENDPOINT = "http://localhost:3001/api/checkSlots";
 const TITLE_FONT = "PressStart";
 const CONTENT_FONT = "serif"
 const TEXT_WIDTH = 290;
@@ -31,12 +33,24 @@ let myFont2 = new FontFace(
 var alt_text = "";
  $(function(){
 
+  $.ajax({
+    url: SPOT_ENDPOINT,
+    type: 'GET',
+    dataType: 'json', // added data type
+    success: function(res) {
+      if(res['slots_left'] < 1) {
+        $('#spot-block')[0].classList.toggle('d-none');
+      }
+      else {
+        $('#username-form')[0].classList.toggle('d-none');
+      }
+    }
+  });
     $('#username-form').submit(function () {
       main();
       return false;
      });
-
-});
+  });
 
 const loadImage = path => {
 	return new Promise((resolve, reject) => {
@@ -192,6 +206,8 @@ async function validateResponse(data) {
 function handleError(err) {
     let error_box = document.getElementById('error');
     error_box.classList.remove('d-none');
+    let loading_box = document.getElementById('loading');
+    loading_box.classList.add('d-none');
     //expected error
     if('error' in err) {
     error_box.innerText = err['error'];
