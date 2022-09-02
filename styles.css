@@ -31,16 +31,6 @@
   color:#008F11;
 }
 
-input:-webkit-autofill {
-  -webkit-box-shadow:0 0 0 50px black inset; /* Change the color to your own background color */
-  -webkit-text-fill-color: #00ff41;
-}
-
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 50px black inset;/*your box-shadow*/
-  -webkit-text-fill-color: #00ff41;
-} 
-
 .img-border {
   border-color: #00ff41;
   border-width: 2px;
