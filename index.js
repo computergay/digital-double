@@ -218,7 +218,7 @@ function handleError(err) {
     error_box.innerText = err['error'];
     }
     else {
-      error_box.innerHTML = "Something went wrong.\nPlease DM <a href=\"https://twitter.com/computer_gay\">@computer_gay</a>."
+      error_box.innerHTML = "Sorry, something went wrong. There will be a major update on 9/9 addressing these issues!"
     }
 }
 function altText() {
